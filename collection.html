@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections | BG Brand</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- GSAP & Lenis CS (We will use CDN for JS, CSS mostly custom) -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="./images/logo-removebg-preview.png">
+    <script>
+        // Emergency Preloader Hide
+        (function () {
+            window.addEventListener('load', function () {
+                const p = document.getElementById('preloader');
+                if (p) { p.style.opacity = '0'; setTimeout(() => p.style.display = 'none', 500); }
+            });
+            setTimeout(() => {
+                const p = document.getElementById('preloader');
+                if (p && p.style.display !== 'none') { p.style.opacity = '0'; setTimeout(() => p.style.display = 'none', 500); }
+            }, 3000);
+        })();
+    </script>
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div class="loader-text">BG BRAND</div>
+    </div>
+
+    <!-- Dynamic Header -->
+    <bg-header></bg-header>
+
+    <!-- Page Header -->
+    <header class="py-5 bg-light">
+        <div class="container py-5 text-center">
+            <h1 class="display-4" style="font-family: 'Playfair Display', serif;">Our Collections</h1>
+            <p class="lead text-muted text-uppercase ls-2">Curated for the Exceptional</p>
+        </div>
+    </header>
+
+    <!-- Product Grid -->
+    <section class="py-5" style="min-height: 400px;">
+        <div class="container">
+            <div class="row g-4" id="products-grid">
+                <!-- Loading state -->
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-3 text-muted">Loading our latest collection...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dynamic Footer -->
+    <bg-footer></bg-footer>
+
+    <!-- Buy Now Modal -->
+    <div class="modal fade" id="buyNowModal" tabindex="-1" aria-labelledby="buyNowModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title" id="buyNowModalLabel" style="font-family: 'Playfair Display', serif;">Select
+                        Quantity</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <img id="modal-product-image" src="" alt="Product" class="img-fluid rounded"
+                                style="max-height: 150px; object-fit: cover;">
+                        </div>
+                        <div class="col-7">
+                            <h6 id="modal-product-title" class="mb-2" style="font-family: 'Playfair Display', serif;">
+                                Product Name</h6>
+                            <p class="text-muted mb-3">
+                                <small>Price: <span id="modal-product-price" class="fw-bold">GH₵ 0.00</span></small>
+                            </p>
+
+
+                            <!-- Size Selector -->
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <label class="form-label mb-0 fw-bold" style="min-width: 70px;">Size:</label>
+                                <select class="form-select" id="size-select" style="max-width: 140px;">
+                                    <option value="">Select Size</option>
+                                    <option value="S">Small (S)</option>
+                                    <option value="M">Medium (M)</option>
+                                    <option value="L">Large (L)</option>
+                                    <option value="XL">Extra Large (XL)</option>
+                                </select>
+                            </div>
+
+                            <!-- Quantity Selector -->
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <label class="form-label mb-0 fw-bold" style="min-width: 70px;">Quantity:</label>
+                                <div class="input-group" style="max-width: 140px;">
+                                    <button class="btn btn-outline-secondary" type="button"
+                                        onclick="updateQuantity(-1)">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="number" class="form-control text-center" id="quantity-input" value="1"
+                                        min="1" max="99">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(1)">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Total Price -->
+                            <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded">
+                                <span class="fw-bold">Total:</span>
+                                <span id="modal-total-price" class="h5 mb-0 text-primary">GH₵ 0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-dark rounded-0 px-4" onclick="addToCartWithQuantity()">
+                        <i class="fas fa-shopping-cart me-2"></i>Add to Bag
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartSidebar" aria-labelledby="cartSidebarLabel"
+        style="display: flex; flex-direction: column; height: 100vh;">
+        <div class="offcanvas-header border-bottom" style="flex-shrink: 0;">
+            <h5 class="offcanvas-title" id="cartSidebarLabel" style="font-family: 'Playfair Display', serif;">Shopping
+                Bag</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body" style="flex: 1; overflow-y: auto; padding-bottom: 0;">
+            <div id="cart-empty-state" class="text-center py-5">
+                <p class="text-muted">Your bag is currently empty.</p>
+                <button class="btn btn-dark rounded-0 mt-3" data-bs-dismiss="offcanvas">Start Shopping</button>
+            </div>
+
+            <div id="cart-items-container">
+            </div>
+        </div>
+        <div class="border-top bg-light p-4" id="cart-footer-section"
+            style="flex-shrink: 0; display: block !important; visibility: visible !important; position: relative; z-index: 1000; min-height: 120px; background-color: #f8f9fa !important; border-top: 2px solid #dee2e6 !important;">
+            <div class="d-flex justify-content-between mb-3">
+                <span class="fw-bold">Subtotal</span>
+                <span class="fw-bold" id="cart-subtotal">$0.00</span>
+            </div>
+            <button class="btn btn-dark w-100 py-3 rounded-0 text-uppercase ls-2" id="checkout-btn"
+                style="display: block !important; visibility: visible !important; opacity: 1 !important; position: relative; z-index: 1001;">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Clerk Authentication SDK -->
+    <script async crossorigin="anonymous"
+        data-clerk-publishable-key="pk_test_cHJpbWFyeS1sZW1taW5nLTQxLmNsZXJrLmFjY291bnRzLmRldiQ"
+        src="https://primary-lemming-41.clerk.accounts.dev/npm/@clerk/clerk-js@5/dist/clerk.browser.js"
+        type="text/javascript">
+        </script>
+    <script src="js/clerk-config.js"></script>
+    <script src="js/auth-store.js"></script>
+
+    <!-- Animation Libs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Legacy AOS for compatibility if needed, or we remove it -->
+    <script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Main Scripts (Loaded in order for dependencies) -->
+    <!-- Contentful CMS Integration -->
+    <script src="js/contentful.js?v=3"></script>
+    <script src="js/data.js?v=3"></script>
+    <script src="js/store.js?v=3"></script>
+    <script src="js/components.js?v=3"></script>
+    <!-- Collection page specific script (replaces main.js to avoid conflicts) -->
+    <script src="js/collection-page.js?v=3"></script>
+</body>
+
+</html>

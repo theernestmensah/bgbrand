@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<parameter name="lang">en
+
+    </html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Order Confirmed | BG Brand</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/png" href="./images/logo-removebg-preview.png">
+    </head>
+
+    <body class="bg-light">
+
+        <header class="py-3 bg-white border-bottom">
+            <div class="container text-center">
+                <a class="navbar-brand" href="index.html">
+                    <img src="./images/logo-removebg-preview.png" alt="BG BRAND" style="height: 50px;">
+                </a>
+            </div>
+        </header>
+
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-sm rounded-0 text-center p-5">
+                        <div class="mb-4">
+                            <div class="rounded-circle bg-success d-inline-flex align-items-center justify-content-center"
+                                style="width: 100px; height: 100px;">
+                                <i class="fas fa-check text-white" style="font-size: 3rem;"></i>
+                            </div>
+                        </div>
+
+                        <h2 class="mb-3" style="font-family: 'Playfair Display', serif;">Order Confirmed!</h2>
+                        <p class="text-muted mb-4">Thank you for your purchase. Your order has been successfully placed.
+                        </p>
+
+                        <div class="border-top border-bottom py-4 mb-4">
+                            <div class="row text-start">
+                                <div class="col-6">
+                                    <p class="text-muted small mb-1">Order Reference</p>
+                                    <p class="fw-bold" id="order-reference">-</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="text-muted small mb-1">Order Date</p>
+                                    <p class="fw-bold" id="order-date">-</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info rounded-0 text-start">
+                            <h6 class="mb-2"><i class="fas fa-info-circle me-2"></i>What's Next?</h6>
+                            <ul class="mb-0 small">
+                                <li>You'll receive an order confirmation email shortly</li>
+                                <li>We'll send you tracking information once your order ships</li>
+                                <li>Delivery typically takes 3-5 business days</li>
+                            </ul>
+                        </div>
+
+                        <div class="d-flex gap-3 justify-content-center mt-4">
+                            <a href="collection.html" class="btn btn-outline-dark rounded-0 px-4">Continue Shopping</a>
+                            <a href="index.html" class="btn btn-dark rounded-0 px-4">Go to Homepage</a>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <p class="text-muted small">Need help? <a href="contact.html"
+                                class="text-decoration-none">Contact Support</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            // Get order reference from URL
+            document.addEventListener('DOMContentLoaded', function () {
+                const urlParams = new URLSearchParams(window.location.search);
+                const reference = urlParams.get('ref');
+
+                if (reference) {
+                    document.getElementById('order-reference').textContent = reference;
+                }
+
+                // Display current date
+                const now = new Date();
+                const dateStr = now.toLocaleDateString('en-GB', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                document.getElementById('order-date').textContent = dateStr;
+
+                // Send confirmation email (you would implement this with your backend)
+                console.log('Order completed:', { reference, date: dateStr });
+            });
+        </script>
+    </body>
+
+    </html>

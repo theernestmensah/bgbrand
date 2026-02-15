@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Collection Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+            font-family: monospace;
+        }
+
+        .step {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #ccc;
+        }
+
+        .step.success {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .step.error {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .step.pending {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+
+        pre {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🔍 Collection Page Debug</h1>
+    <div id="debug-output"></div>
+    <hr>
+    <h2>Products Preview:</h2>
+    <div id="products-container" class="row g-4"></div>
+
+    <!-- Load all the same scripts -->
+    <script src="js/contentful.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/components.js"></script>
+
+    <script>
+        const output = document.getElementById('debug-output');
+        const container = document.getElementById('products-container');
+
+        function addStep(message, status = 'pending') {
+            const div = document.createElement('div');
+            div.className = `step ${status}`;
+            div.innerHTML = `<strong>${new Date().toLocaleTimeString()}</strong>: ${message}`;
+            output.appendChild(div);
+        }
+
+        addStep('Starting debug...', 'pending');
+
+        // Step 1: Check if Contentful object exists
+        setTimeout(() => {
+            if (window.Contentful) {
+                addStep('✅ Contentful object found', 'success');
+                addStep(`Config: ${JSON.stringify(window.Contentful.config)}`, 'success');
+            } else {
+                addStep('❌ Contentful object NOT found', 'error');
+            }
+
+            // Step 2: Check if renderProductCard exists
+            if (window.renderProductCard) {
+                addStep('✅ renderProductCard function found', 'success');
+            } else {
+                addStep('❌ renderProductCard function NOT found', 'error');
+            }
+
+            // Step 3: Check window.products
+            addStep(`📦 window.products length: ${window.products?.length || 0}`,
+                window.products?.length > 0 ? 'success' : 'error');
+
+            if (window.products && window.products.length > 0) {
+                addStep(`Products: <pre>${JSON.stringify(window.products, null, 2)}</pre>`, 'success');
+            }
+        }, 1000);
+
+        // Step 4: Listen for contentful:ready
+        window.addEventListener('contentful:ready', (event) => {
+            addStep(`🎉 contentful:ready event fired!`, 'success');
+            addStep(`Products in event: ${event.detail?.products?.length || 0}`, 'success');
+
+            const products = event.detail?.products || [];
+            if (products.length > 0) {
+                addStep(`First product: <pre>${JSON.stringify(products[0], null, 2)}</pre>`, 'success');
+
+                // Try to render products
+                if (window.renderProductCard) {
+                    container.innerHTML = products.map(p => window.renderProductCard(p)).join('');
+                    addStep(`✅ Products rendered to preview!`, 'success');
+                } else {
+                    addStep(`❌ Can't render - renderProductCard missing`, 'error');
+                }
+            }
+        });
+
+        // Step 5: Check after 3 seconds
+        setTimeout(() => {
+            addStep(`Final window.products length: ${window.products?.length || 0}`,
+                window.products?.length > 0 ? 'success' : 'error');
+
+            if (window.products && window.products.length > 0 && window.renderProductCard) {
+                container.innerHTML = window.products.map(p => window.renderProductCard(p)).join('');
+                addStep(`✅ Final render complete!`, 'success');
+            } else {
+                addStep(`❌ Still no products after 3 seconds`, 'error');
+            }
+        }, 3000);
+    </script>
+</body>
+
+</html>

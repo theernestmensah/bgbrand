@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BG Brand | Elevate Your Essence</title>
+    <meta name="description"
+        content="Discover BG Brand's luxury collection of eyewear and dresses. Unapologetic luxury that supports the needy with every purchase.">
+    <meta name="keywords" content="luxury fashion, eyewear, dresses, charity fashion, BG Brand">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&family=Pinyon+Script&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="./images/logo-removebg-preview.png">
+    <script>
+        // Emergency Preloader Hide
+        (function () {
+            window.addEventListener('load', function () {
+                const p = document.getElementById('preloader');
+                if (p) { p.style.opacity = '0'; setTimeout(() => p.style.display = 'none', 500); }
+            });
+            setTimeout(() => {
+                const p = document.getElementById('preloader');
+                if (p && p.style.display !== 'none') { p.style.opacity = '0'; setTimeout(() => p.style.display = 'none', 500); }
+            }, 3000);
+        })();
+    </script>
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div class="loader-text">BG BRAND</div>
+    </div>
+
+
+    <!-- Dynamic Header -->
+    <bg-header></bg-header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Unapologetic Luxury</h1>
+            <p>Eyewear • Dresses</p>
+            <a href="#featured" class="btn btn-custom mt-4">Discover Collection</a>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                    <div class="category-card" onclick="window.location.href='collection.html?filter=eyewear'">
+                        <img src="./images/eyewear.jpeg" alt="Eyewear" loading="lazy">
+                        <div class="category-overlay">
+                            <h3 class="category-title">Eyewear</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-5">
+                    <div class="category-card" onclick="window.location.href='collection.html?filter=dresses'">
+                        <img src="./images/IMG_1790.JPG" alt="Dresses" loading="lazy">
+                        <div class="category-overlay">
+                            <h3 class="category-title">Dresses</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="featured" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 mb-3">The Curator's Edit</h2>
+                <p class="text-muted text-uppercase ls-2">Handpicked for the Bold</p>
+            </div>
+
+            <!-- Dynamic Products Container -->
+            <div class="row" id="featured-products-container">
+                <!-- Products injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-gradient-primary-to-pastel">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <img src="./images/IMG_2218.JPG" class="img-fluid" alt="Fashion Editorial" loading="lazy"
+                        style="border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                </div>
+                <div class="col-md-6 ps-md-5">
+                    <h2 class="display-4 mb-4" style="font-size: 4rem;">
+                        Redefining Elegance</h2>
+                    <p class="lead mb-4" style="font-weight: 300; opacity: 0.9;">
+                        BG Brand isn't just clothing; it's an attitude. Inspired by the cosmopolitan energy of the
+                        world's fashion capitals, we fuse timeless silhouettes with modern audacity.
+                    </p>
+                    <a href="about.html" class="btn btn-custom">Read Our
+                        Story</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dynamic Footer -->
+    <bg-footer></bg-footer>
+
+    <!-- Shopping Bag Offcanvas (Kept in HTML for Bootstrap JS access for now, or move to dedicated component later) -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartSidebar" aria-labelledby="cartSidebarLabel">
+        <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title" id="cartSidebarLabel" style="font-family: 'Cinzel', serif;">Shopping Bag</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div id="cart-empty-state" class="text-center py-5">
+                <p class="text-muted">Your bag is currently empty.</p>
+                <button class="btn btn-dark rounded-0 mt-3" data-bs-dismiss="offcanvas">Start Shopping</button>
+            </div>
+
+            <div id="cart-items-container">
+            </div>
+        </div>
+        <div class="offcanvas-footer p-4 border-top bg-light">
+            <div class="d-flex justify-content-between mb-3">
+                <span class="fw-bold">Subtotal</span>
+                <span class="fw-bold" id="cart-subtotal">GH₵ 0.00</span>
+            </div>
+            <button class="btn btn-dark w-100 py-3 rounded-0 text-uppercase ls-2" id="checkout-btn">Checkout</button>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Dependencies - Bootstrap must load before components -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Animation Libs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Clerk Authentication SDK -->
+    <script async crossorigin="anonymous"
+        data-clerk-publishable-key="pk_test_cHJpbWFyeS1sZW1taW5nLTQxLmNsZXJrLmFjY291bnRzLmRldiQ"
+        src="https://primary-lemming-41.clerk.accounts.dev/npm/@clerk/clerk-js@5/dist/clerk.browser.js"
+        type="text/javascript">
+        </script>
+
+    <!-- Main Scripts (Loaded in order for dependencies) -->
+    <script src="js/clerk-config.js"></script>
+    <script src="js/auth-store.js"></script>
+    <!-- Contentful CMS Integration -->
+    <script src="js/contentful.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/3d-effects.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

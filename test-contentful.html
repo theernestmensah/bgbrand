@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contentful Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .product {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        .product img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        pre {
+            background: #f5f5f5;
+            padding: 15px;
+            overflow-x: auto;
+            border-radius: 5px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🔍 Contentful API Test</h1>
+    <div id="status"></div>
+    <div id="results"></div>
+
+    <script>
+        const SPACE_ID = '4ss02lueims8';
+        const ACCESS_TOKEN = 'wMyx_YUgvYEZF-8m2fYLjwuihtOezt-mAfRh6x0NtAs';
+        const ENVIRONMENT = 'master';
+
+        const statusDiv = document.getElementById('status');
+        const resultsDiv = document.getElementById('results');
+
+        function showStatus(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.textContent = message;
+            statusDiv.appendChild(div);
+        }
+
+        async function testContentful() {
+            showStatus('🚀 Testing Contentful API...', 'info');
+
+            const url = `https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT}/entries?access_token=${ACCESS_TOKEN}&content_type=product&include=2`;
+
+            showStatus(`📡 URL: ${url}`, 'info');
+
+            try {
+                const response = await fetch(url);
+                showStatus(`📊 Status: ${response.status} ${response.statusText}`, response.ok ? 'success' : 'error');
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    showStatus(`❌ Error Response: ${errorText}`, 'error');
+                    return;
+                }
+
+                const data = await response.json();
+
+                showStatus(`✅ API Response Received!`, 'success');
+                showStatus(`📦 Total Items: ${data.items?.length || 0}`, 'info');
+                showStatus(`🖼️ Total Assets: ${data.includes?.Asset?.length || 0}`, 'info');
+
+                // Display raw response
+                resultsDiv.innerHTML = `
+                    <h2>Raw API Response:</h2>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+
+                // Show items
+                if (data.items && data.items.length > 0) {
+                    const itemsHtml = data.items.map(item => `
+                        <div class="product">
+                            <h3>${item.fields.title || 'No Title'}</h3>
+                            <p><strong>ID:</strong> ${item.sys.id}</p>
+                            <p><strong>Price:</strong> $${item.fields.price || 0}</p>
+                            <p><strong>Category:</strong> ${item.fields.category || 'N/A'}</p>
+                            <p><strong>Description:</strong> ${item.fields.description || 'N/A'}</p>
+                            <p><strong>Image ID:</strong> ${item.fields.image?.sys?.id || 'No image'}</p>
+                        </div>
+                    `).join('');
+
+                    resultsDiv.innerHTML += `<h2>Products Found:</h2>${itemsHtml}`;
+                } else {
+                    showStatus('⚠️ No products found! Check content type ID or publishing status.', 'error');
+                }
+
+            } catch (error) {
+                showStatus(`❌ Error: ${error.message}`, 'error');
+                resultsDiv.innerHTML = `<pre>Error Details:\n${error.stack}</pre>`;
+            }
+        }
+
+        // Run test on page load
+        testContentful();
+    </script>
+</body>
+
+</html>

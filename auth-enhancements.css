@@ -1,0 +1,250 @@
+/* ==================================
+   PREMIUM AUTH PAGE ENHANCEMENTS
+   Add this to the existing style.css or import separately
+   ================================== */
+
+/* Enhanced Visual Background with Animation */
+.auth-visual .auth-img {
+    filter: brightness(0.7) contrast(1.1);
+    animation: subtleZoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes subtleZoom {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.08);
+    }
+}
+
+/* Enhanced Overlay Gradient */
+.auth-overlay {
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.9) 0%,
+            rgba(0, 0, 0, 0.6) 50%,
+            transparent 100%);
+    padding: 60px;
+}
+
+.auth-brand-logo {
+    font-size: 3.5rem;
+    letter-spacing: 8px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+    animation: fadeInUp 1s ease;
+}
+
+.auth-quote {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    animation: fadeInUp 1.2s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Premium Form Container with Gradient Background */
+.auth-form-container {
+    background: linear-gradient(135deg, #ffffff 0%, #faf9ff 100%);
+    position: relative;
+}
+
+.auth-form-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="1.5" fill="%23e5e5e5" opacity="0.3"/></svg>');
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.auth-form-wrapper {
+    position: relative;
+    z-index: 1;
+}
+
+/* Enhanced Input Fields */
+.form-control {
+    border-radius: 0 !important;
+    border: none !important;
+    border-bottom: 2px solid #e0e0e0 !important;
+    padding: 18px 0 !important;
+    padding-left: 0 !important;
+    background: transparent !important;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--secondary-color) !important;
+    box-shadow: none !important;
+    background: rgba(255, 255, 255, 0.6) !important;
+}
+
+.form-floating>label {
+    color: #999;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-floating>.form-control:focus~label,
+.form-floating>.form-control:not(:placeholder-shown)~label {
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+/* Premium Button with Gradient */
+.auth-page .btn-dark {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+    border: none;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(106, 27, 154, 0.3);
+}
+
+.auth-page .btn-dark::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.auth-page .btn-dark:hover::before {
+    left: 100%;
+}
+
+.auth-page .btn-dark:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(106, 27, 154, 0.4);
+}
+
+/* Enhanced Google Button */
+.auth-btn-google {
+    border: 2px solid #e0e0e0 !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-btn-google::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.05), transparent);
+    transition: left 0.5s;
+}
+
+.auth-btn-google:hover::before {
+    left: 100%;
+}
+
+.auth-btn-google:hover {
+    border-color: #333 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.auth-btn-google i {
+    color: #DB4437;
+}
+
+/* Enhanced Tab Navigation */
+.auth-nav {
+    gap: 60px !important;
+    position: relative;
+}
+
+.auth-nav::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, #e0e0e0 50%, transparent 100%);
+}
+
+.auth-nav .nav-link {
+    color: #999 !important;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.auth-nav .nav-link.active {
+    color: var(--secondary-color) !important;
+}
+
+.auth-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+    transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    border-radius: 2px;
+}
+
+.auth-nav .nav-link.active::after {
+    width: 100%;
+}
+
+/* Enhanced Divider */
+.auth-divider::before {
+    background: linear-gradient(90deg, transparent 0%, #ddd 50%, transparent 100%);
+}
+
+.auth-divider span {
+    background: linear-gradient(135deg, #ffffff 0%, #faf9ff 100%);
+}
+
+/* Enhanced Checkboxes */
+.form-check-input {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-check-input:checked {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+/* Tab Content Animation */
+.tab-pane {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
