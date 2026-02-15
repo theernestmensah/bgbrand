@@ -71,6 +71,11 @@ function processContentfulResponse(data) {
     return items.map(item => {
         const fields = item.fields;
 
+        // DEBUG: Log fields to help identify correct property names
+        if (window.location.hostname === 'localhost') {
+            console.log('📦 Item Fields:', Object.keys(fields));
+        }
+
         // Get image URL from linked asset
         let imageUrl = './images/placeholder.jpg'; // Default fallback
         if (fields.image && fields.image.sys && fields.image.sys.id) {
@@ -80,9 +85,12 @@ function processContentfulResponse(data) {
             }
         }
 
+        // Robust title retrieval with fallbacks
+        const productTitle = fields.title || fields.name || fields.productName || 'Untitled Product';
+
         return {
             id: item.sys.id,
-            title: fields.title || 'Untitled Product',
+            title: productTitle,
             price: fields.price || 0,
             image: imageUrl,
             category: fields.category || 'uncategorized',
@@ -177,4 +185,3 @@ if (window.location.pathname.includes('collection.html') ||
     localStorage.getItem('useContentful') === 'true') {
     initializeContentful();
 }
- 
