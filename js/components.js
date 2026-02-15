@@ -17,7 +17,7 @@ class BGHeader extends HTMLElement {
             <nav class="navbar navbar-expand-lg sticky-top">
                 <div class="container">
                     <a class="navbar-brand" href="index.html">
-                        <img src="./images/logo-removebg-preview.png" alt="BG BRAND" style="height: 65px;">
+                        <img src="https://i.ibb.co/T95Tb6w/logo-removebg-preview.png" alt="BG BRAND" style="height: 65px;">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                         <span class="navbar-toggler-icon"></span>

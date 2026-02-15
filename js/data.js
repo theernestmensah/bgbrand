@@ -13,6 +13,7 @@ const categories = [
 window.products = [];
 window.categories = categories;
 
+
 // Listen for Contentful products
 if (window.Contentful) {
     console.log('🎨 Waiting for Contentful products...');
