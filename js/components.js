@@ -163,8 +163,6 @@ class BGFooter extends HTMLElement {
                             <h5>Shop</h5>
                             <ul>
                                 <li><a href="collection.html">New Arrivals</a></li>
-                                <li><a href="collection.html?filter=eyewear">Eyewear</a></li>
-                                <li><a href="collection.html?filter=dresses">Dresses</a></li>
                             </ul>
                         </div>
                         <div class="col-lg-2 col-6 footer-links">

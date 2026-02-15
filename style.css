@@ -361,8 +361,6 @@ h6 {
    color: var(--secondary-color) !important;
 }
 
-/* Removed redundant scrolled states */
-
 .nav-link::after {
    content: '';
    position: absolute;
@@ -828,7 +826,7 @@ footer ul li a:hover {
 /* --- About Page Specific --- */
 .about-hero {
    height: 70vh;
-   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('./images/IMG_2220.JPG') no-repeat center center/cover;
+   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://i.ibb.co/99NPKf7j/IMG-2220.jpg') no-repeat center center/cover;
    display: flex;
    align-items: center;
    justify-content: center;
@@ -955,8 +953,39 @@ footer ul li a:hover {
    font-size: 1rem;
 }
 
-/* Responsive adjustments for new About page */
-@media (max-width: 768px) {
+/* --- GLOBAL RESPONSIVE ADJUSTMENTS --- */
+
+@media (max-width: 991px) {
+
+   /* Navbar collapse style */
+   .navbar-collapse {
+      background: white;
+      padding: 20px;
+      margin-top: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+   }
+
+   .nav-link {
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+      color: #333 !important;
+   }
+
+   .nav-link:last-child {
+      border-bottom: none;
+   }
+
+   /* Hero Text Sizing */
+   .hero h1 {
+      font-size: 3.5rem;
+   }
+
+   .hero p {
+      font-size: 1.2rem;
+   }
+
+   /* Reduce spacing */
    .py-10 {
       padding-top: 5rem;
       padding-bottom: 5rem;
@@ -965,14 +994,99 @@ footer ul li a:hover {
    .mb-10 {
       margin-bottom: 5rem;
    }
+}
 
+@media (max-width: 768px) {
+
+   /* Hero on mobile */
+   .hero {
+      height: 80vh;
+      /* Allow more scroll space */
+      min-height: 500px;
+   }
+
+   .hero h1 {
+      font-size: 2.8rem;
+      /* Smaller for mobile */
+      text-shadow: none;
+      /* Remove heavy shadow for cleanliness */
+   }
+
+   /* Category Cards */
+   .category-card {
+      min-height: 250px;
+      /* Reduce height */
+      margin-bottom: 20px;
+   }
+
+   .category-title {
+      font-size: 1.8rem;
+   }
+
+   /* Product Cards */
+   .product-card {
+      margin-bottom: 20px;
+   }
+
+   /* About Us specific */
    .ps-md-10,
    .pe-md-10 {
-      padding-left: 15px;
-      padding-right: 15px;
+      padding-left: 0;
+      padding-right: 0;
    }
 
    .about-hero {
       height: 50vh;
+   }
+
+   .about-hero h1 {
+      font-size: 3rem;
+   }
+
+   /* Footer adjustments */
+   footer {
+      text-align: center;
+   }
+
+   .footer-logo {
+      margin: 0 auto 20px auto;
+   }
+
+   .footer-links {
+      margin-bottom: 30px;
+   }
+}
+
+@media (max-width: 576px) {
+   .container {
+      padding-left: 20px;
+      padding-right: 20px;
+   }
+
+   .hero h1 {
+      font-size: 2.5rem;
+   }
+
+   .display-4 {
+      font-size: 2.5rem !important;
+      /* Force smaller headings */
+   }
+
+   .display-5 {
+      font-size: 2rem !important;
+   }
+
+   /* Reveal image container should not override everything */
+   .reveal-img-container {
+      height: auto;
+   }
+
+   /* Navbar Toggler Visibility */
+   .navbar-toggler {
+      border-color: rgba(0, 0, 0, 0.1);
+   }
+
+   .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
    }
 }
