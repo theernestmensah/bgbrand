@@ -14,6 +14,59 @@ const products = window.products;
 const store = window.store;
 const renderProductCard = window.renderProductCard;
 
+// --- CONTENT PROTECTION SCRIPT ---
+// Disable right-click
+document.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    return false;
+});
+
+// Disable text selection
+document.addEventListener('selectstart', (e) => {
+    e.preventDefault();
+    return false;
+});
+
+// Disable image dragging
+document.addEventListener('dragstart', (e) => {
+    e.preventDefault();
+    return false;
+});
+
+// Disable keyboard shortcuts (F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S)
+document.addEventListener('keydown', (e) => {
+    // F12
+    if (e.key === 'F12') {
+        e.preventDefault();
+        return false;
+    }
+    // Ctrl+Shift+I (DevTools)
+    if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+        e.preventDefault();
+        return false;
+    }
+    // Ctrl+Shift+J (DevTools Console)
+    if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+        e.preventDefault();
+        return false;
+    }
+    // Ctrl+Shift+C (DevTools Element Inspector)
+    if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+        e.preventDefault();
+        return false;
+    }
+    // Ctrl+U (View Source)
+    if (e.ctrlKey && e.key === 'u') {
+        e.preventDefault();
+        return false;
+    }
+    // Ctrl+S (Save Page)
+    if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        return false;
+    }
+});
+
 // --- GSAP Animations ---
 if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
