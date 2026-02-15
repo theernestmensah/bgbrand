@@ -391,7 +391,7 @@ h6 {
 /* --- Hero Section --- */
 .hero {
    height: 100vh;
-   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://ik.imagekit.io/jo5qq4dug/BGBrand/home%20pic.JPG?updatedAt=1766572182645') no-repeat center center/cover;
+   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://i.ibb.co/7xFLP7BH/home-pic.jpg') no-repeat center center/cover;
    display: flex;
    align-items: center;
    justify-content: center;
